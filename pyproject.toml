@@ -1,0 +1,8 @@
+[project]
+name = "physics-animation"
+version = "0.1.0"
+description = "Educational physics animations built with Manim Community."
+requires-python = ">=3.11"
+dependencies = [
+    "manim>=0.20.1",
+]
