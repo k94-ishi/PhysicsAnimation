@@ -13,6 +13,53 @@ Future plans include:
 * More advanced physics and university-level mathematics
 * Machine Learning / AI visualization
 
+## ToDo
+
+### Content
+
+* [ ] Draft the next topic through the usual workflow (`concept_map.md` →
+  `teaching_plan.md` → `storyboard.md`, each reviewed before the next).
+* [ ] Free fall is a strong next-topic candidate: it was cut from
+  `mechanics_acceleration_and_uniformly_accelerated_motion` to keep that
+  topic focused, and its own `concept_map.md` notes everything carries
+  over directly by substituting `g` for `a`.
+* [ ] Beyond that, the rest of the mechanics sequence (forces, momentum,
+  energy, circular motion, ...) is still undecided — topic direction comes
+  from conversation, per `CLAUDE.md`.
+
+### Voiceover
+
+* [ ] Integrate [`manim-voiceover`](https://github.com/ManimCommunity/manim-voiceover)
+  so narration is synced to each Beat directly in scene code (e.g.
+  `with self.voiceover(text=...) as tracker:`), instead of today's
+  workflow where narration is recorded/timed separately from the Manim
+  scenes (see each scene's module docstring).
+* [ ] Decide on a narration source: a TTS service (the plugin supports
+  several) for drafts/previews, a recorded voice actor for final
+  publishes, or both.
+* [ ] Add `manim-voiceover` to `pyproject.toml`/`requirements.txt`, and
+  start populating `assets/audio/` (currently empty).
+* [ ] Once narration drives Beat timing, revisit each scene's hand-tuned
+  `wait()`/`run_time` constants - many exist only to approximate how long
+  a Beat's narration takes to say.
+
+### Other
+
+* [ ] Push this repository to a GitHub remote (local-only so far).
+* [ ] Upgrade Manim (`0.20.1` installed; `0.22.0` is available) and
+  re-render/re-check existing scenes before relying on it.
+* [ ] Add CI (e.g. GitHub Actions) that renders every scene at `-ql` and
+  fails on errors, so rendering regressions (like the font-kerning issue
+  fixed in `common/__init__.py`) surface automatically instead of waiting
+  for manual review.
+* [ ] `common/__init__.py` pins `Text`'s font to "Georgia" for correct
+  Pango kerning; confirm it (or a suitable fallback) is actually available
+  wherever this gets rendered next (e.g. a Linux CI runner), since it
+  isn't preinstalled everywhere the way it is on macOS/Windows.
+* [ ] Have a native English speaker proofread the storyboard `Narration`
+  text (translated from the project's original Japanese) for natural
+  phrasing before recording final voiceover audio.
+
 ## Repository Structure
 
 ```text

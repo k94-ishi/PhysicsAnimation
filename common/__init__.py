@@ -9,13 +9,14 @@ from manim import Text
 # file first) so Text() looks right regardless of the rendering machine's
 # locale.
 #
-# "CMU Serif" (Computer Modern Unicode) is the standard choice in the
-# Manim community for Text: it's metrically the same family LaTeX uses for
-# every MathTex/Tex formula in this project (Computer Modern is LaTeX's
-# default math font), so prose captions and equations share one typeface
-# instead of clashing (e.g. a sans-serif caption next to serif formulas).
-# Requires the cm-unicode font family to be installed and visible to
-# fontconfig (ships with most LaTeX distributions, e.g. TeX Live's
-# cm-unicode package, but isn't always registered as a system font - see
-# README.md > Development).
-Text.set_default(font="CMU Serif")
+# "CMU Serif" (Computer Modern Unicode) looks like the obvious choice,
+# since it's the same family LaTeX already renders every MathTex/Tex
+# formula in - but it only gets TeX's own spacing corrections inside an
+# actual LaTeX run. Text() never goes through LaTeX; it's shaped directly
+# by Pango, and cm-unicode's OpenType conversion has incomplete/uneven
+# kerning data for that path - confirmed by rendering the same sentence in
+# CMU Serif vs. Georgia: CMU Serif comes out with visibly inconsistent
+# word and letter spacing, Georgia doesn't. Georgia is a serif face with
+# complete, well-behaved Pango kerning, so it pairs reasonably with the
+# Computer Modern math without inheriting cm-unicode's rendering defects.
+Text.set_default(font="Georgia")
