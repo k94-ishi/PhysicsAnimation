@@ -61,10 +61,10 @@ FACE_AXIS_X_NEW = -6.5
 GRAPH_ORIGIN_X_NEW = -4.3
 T_AXIS_LENGTH_NEW = 3.3
 
-CHECKLIST_X = 0.3
+CHECKLIST_X = 0.0  # moved left and shrunk from the original Japanese-text tuning (review: English lines ran past the right frame edge)
 CHECKLIST_TOP_Y = 2.2
 CHECKLIST_LINE_GAP = 0.9
-CHECKLIST_FONT_SIZE = 20
+CHECKLIST_FONT_SIZE = 18
 CHECKLIST_LINES = [
     "Motion can be expressed through position and time",
     "The x-t graph shows how position changes",
