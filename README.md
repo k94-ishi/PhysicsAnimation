@@ -85,6 +85,48 @@ Example:
 uv run python units/mechanics/mechanics_how_to_express_movements/render.py
 ```
 
+### Combining rendered scenes into one video
+
+Manim renders each scene to its own file, under
+`media/videos/<scene_file_stem>/<quality_dir>/<SceneClassName>.mp4` (the
+quality directory is `480p15` for `-ql`, `720p30` for `-qm`, `1080p60` for
+`-qh`, and `2160p60` for `-qk`). After rendering every scene for a topic,
+concatenate them in the order defined by that topic's `render.py` (so the
+lesson plays start to finish) and save the result under `output/preview/`
+(for a `-ql`/`-qm` pass) or `output/final/` (for a `-qh`/`-qk` pass).
+
+```bash
+TOPIC_DIR=units/mechanics/mechanics_how_to_express_movements
+QUALITY_DIR=480p15   # must match the quality flag used to render
+OUT_DIR=output/preview   # use output/final for a -qh/-qk render
+
+uv run python - <<PYEOF
+import importlib.util, pathlib
+
+topic_dir = pathlib.Path("$TOPIC_DIR")
+spec = importlib.util.spec_from_file_location("render", topic_dir / "render.py")
+render = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(render)
+
+clips = [
+    pathlib.Path("media/videos") / pathlib.Path(scene_file).stem / "$QUALITY_DIR" / f"{scene_class}.mp4"
+    for scene_file, scene_class in render.SCENES
+]
+pathlib.Path("/tmp/concat_list.txt").write_text(
+    "".join(f"file '{clip.resolve()}'\n" for clip in clips)
+)
+PYEOF
+
+mkdir -p "$OUT_DIR"
+ffmpeg -f concat -safe 0 -i /tmp/concat_list.txt -c copy "$OUT_DIR/$(basename "$TOPIC_DIR").mp4"
+```
+
+Reading `render.py`'s own `SCENES` list keeps the concatenation order in
+sync with whatever that topic actually renders, instead of relying on a
+second, hand-maintained list. Stream-copying (`-c copy`) avoids
+re-encoding, since every scene in a topic shares the same Manim render
+settings.
+
 ## Project Principles
 
 * Educational clarity comes first.
