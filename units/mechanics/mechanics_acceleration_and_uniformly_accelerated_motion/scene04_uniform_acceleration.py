@@ -54,9 +54,9 @@ DRAW_RUN_TIME = 2.6
 HOLD_TIME = 0.8
 
 LABEL_BIG_FONT = 30
-LABEL_SMALL_FONT = 22
+LABEL_SMALL_FONT = 19  # smaller than scene01's: this label's English text is the longest in the project
 LABEL_START_POS = np.array([0.0, -1.3, 0.0])  # right below the teaser's motion path (y=0), matching scene01
-LABEL_END_POS = np.array([2.6, 3.7, 0.0])
+LABEL_END_POS = np.array([2.2, 3.7, 0.0])  # nudged left of scene01's to keep this longer label clear of the right frame edge
 LABEL_SCALE = LABEL_SMALL_FONT / LABEL_BIG_FONT
 
 

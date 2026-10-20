@@ -50,7 +50,7 @@ CHECKLIST_FONT = 20
 FORMULA_POS = np.array([4.2, -1.3, 0.0])
 FORMULA_GAP = 0.55
 
-LABEL_POS = np.array([-3.25, 3.7, 0.0])  # aligned with the x-t/v-t graph titles' height (review)
+LABEL_POS = np.array([-3.3, 3.7, 0.0])  # aligned with the x-t/v-t graph titles' height (review)
 
 INTRO_TIME = 0.6
 DRAW_TIME = 2.6
@@ -86,7 +86,7 @@ class Scene07Summary(Scene):
         def v_point(t: float, v: float) -> np.ndarray:
             return np.array([v_t_axis.number_to_point(t)[0], v_axis.number_to_point(v)[1], 0.0])
 
-        label = Text("Uniformly accelerated motion", color=FORMULA, font_size=18)
+        label = Text("Uniformly accelerated motion", color=FORMULA, font_size=16)  # shrunk from the original Japanese-text size: the English wording ran into the x-t graph title next to it
         label.move_to(LABEL_POS)
 
         self.play(
