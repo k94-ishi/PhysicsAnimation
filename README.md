@@ -78,6 +78,25 @@ Install dependencies.
 uv pip install -r requirements.txt
 ```
 
+Every `Text` mobject uses "CMU Serif" by default (see `common/__init__.py`),
+to match the Computer Modern font LaTeX already renders every formula in.
+That font family ships with most LaTeX distributions but isn't always
+registered as a system font fontconfig/Pango can find by name. If it
+isn't, register it once:
+
+```bash
+mkdir -p ~/Library/Fonts
+for f in cmunrm.otf cmunbx.otf cmunti.otf cmunbi.otf; do cp "$(kpsewhich "$f")" ~/Library/Fonts/; done
+fc-cache -f ~/Library/Fonts
+```
+
+Confirm it resolves correctly (should print `cmunrm.otf`, not a fallback
+font):
+
+```bash
+fc-match "CMU Serif"
+```
+
 Run Manim with `uv run`.
 
 Example:
